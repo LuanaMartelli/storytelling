@@ -1,10 +1,9 @@
 from django.shortcuts import render
-
-# Create your views here.
-
 from django.http import HttpResponse
-from django.shortcuts import render
 import os
+
+from app.charts import demo_piechart
+
 
 def index(request):
 
@@ -19,5 +18,7 @@ def index(request):
         for key, file_path in files.items():
                 with open(file_path, 'r') as file:
                         content[key] = file.read()
+
+        content["data"], content["labels"] = demo_piechart()
 
         return render(request, "index.html", content)
